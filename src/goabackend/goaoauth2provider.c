@@ -940,7 +940,12 @@ on_web_view_navigation_policy_decision_requested (WebKitWebView             *web
 
       url = soup_uri_to_string (uri, FALSE);
       if (!goa_oauth2_provider_process_redirect_url (provider, url, &priv->access_token, &priv->error))
-        response_id = GTK_RESPONSE_CLOSE;
+        {
+          g_prefix_error (priv->error, _("Authorization response: "));
+          priv->error->domain = GOA_ERROR;
+          priv->error->code = GOA_ERROR_NOT_AUTHORIZED;
+          response_id = GTK_RESPONSE_CLOSE;
+        }
       else
         response_id = GTK_RESPONSE_OK;
 
@@ -1006,7 +1011,7 @@ on_web_view_navigation_policy_decision_requested (WebKitWebView             *web
       g_set_error (&priv->error,
                    GOA_ERROR,
                    GOA_ERROR_NOT_AUTHORIZED,
-                   _("Authorization response was ‘%s’"),
+                   _("Authorization response: %s"),
                    oauth2_error);
       response_id = GTK_RESPONSE_CLOSE;
     }
