@@ -29,15 +29,8 @@
 #include "goaoauth2provider.h"
 #include "goawindowsliveprovider.h"
 
-/**
- * GoaWindowsLiveProvider:
- *
- * The #GoaWindowsLiveProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaWindowsLiveProvider
 {
-  /*< private >*/
   GoaOAuth2Provider parent_instance;
 };
 
@@ -48,20 +41,7 @@ struct _GoaWindowsLiveProviderClass
   GoaOAuth2ProviderClass parent_class;
 };
 
-/**
- * SECTION:goawindowsliveprovider
- * @title: GoaWindowsLiveProvider
- * @short_description: A provider for Windows Live accounts
- *
- * #GoaWindowsLiveProvider is used for handling Windows Live accounts.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaWindowsLiveProvider, goa_windows_live_provider, GOA_TYPE_OAUTH2_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-							 g_define_type_id,
-							 "windows_live",
-							 0));
+G_DEFINE_DYNAMIC_TYPE (GoaWindowsLiveProvider, goa_windows_live_provider, GOA_TYPE_OAUTH2_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -449,6 +429,11 @@ goa_windows_live_provider_init (GoaWindowsLiveProvider *client)
 }
 
 static void
+goa_windows_live_provider_class_finalize (GoaWindowsLiveProviderClass *klass)
+{
+}
+
+static void
 goa_windows_live_provider_class_init (GoaWindowsLiveProviderClass *klass)
 {
   GoaProviderClass *provider_class;
@@ -475,4 +460,14 @@ goa_windows_live_provider_class_init (GoaWindowsLiveProviderClass *klass)
   oauth2_class->is_deny_node             = is_deny_node;
   oauth2_class->is_identity_node         = is_identity_node;
   oauth2_class->add_account_key_values   = add_account_key_values;
+}
+
+void
+goa_windows_live_provider_register (GIOModule *module)
+{
+  goa_windows_live_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
+                                  GOA_TYPE_WINDOWS_LIVE_PROVIDER,
+                                  "windows_live",
+                                  0);
 }

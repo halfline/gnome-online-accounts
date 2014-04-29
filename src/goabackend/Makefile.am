@@ -86,7 +86,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goaowncloudprovider.h		goaowncloudprovider.c		\
 	goayahooprovider.h		goayahooprovider.c		\
 	goaflickrprovider.h		goaflickrprovider.c		\
-	goawindowsliveprovider.h	goawindowsliveprovider.c	\
 	goatelepathyfactory.h		goatelepathyfactory.c		\
 	goatelepathyprovider.h		goatelepathyprovider.c		\
 	goapocketprovider.h		goapocketprovider.c		\
@@ -150,6 +149,31 @@ endif
 if BUILD_KERBEROS
 libgoa_backend_1_0_la_SOURCES +=					\
 	goakerberosprovider.h		goakerberosprovider.c
+endif
+
+if BUILD_WINDOWS_LIVE
+goamodule_LTLIBRARIES += libgoawindowslive.la
+libgoawindowslive_la_SOURCES =					\
+	goawindowslivemodule.c					\
+	goawindowsliveprovider.c				\
+	goawindowsliveprovider.h				\
+	$(NULL)
+libgoawindowslive_la_CFLAGS =					\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(JSON_GLIB_CFLAGS)					\
+	$(REST_CFLAGS)						\
+	$(WEBKIT_GTK_CFLAGS)					\
+	$(NULL)
+libgoawindowslive_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(JSON_GLIB_LIBS)					\
+	$(REST_LIBS)						\
+	$(WEBKIT_GTK_LIBS)					\
+	$(NULL)
+libgoawindowslive_la_LDFLAGS = $(module_flags)
 endif
 
 libgoa_backend_1_0_la_CFLAGS =					\

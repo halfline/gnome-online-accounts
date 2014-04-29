@@ -544,16 +544,6 @@ goa_exchange_provider_get_type
 </SECTION>
 
 <SECTION>
-<FILE>goawindowsliveprovider</FILE>
-GoaWindowsLiveProvider
-<SUBSECTION Standard>
-GOA_WINDOWS_LIVE_PROVIDER
-GOA_IS_WINDOWS_LIVE_PROVIDER
-GOA_TYPE_WINDOWS_LIVE_PROVIDER
-goa_windows_live_provider_get_type
-</SECTION>
-
-<SECTION>
 <FILE>goayahooprovider</FILE>
 GoaYahooProvider
 <SUBSECTION Standard>

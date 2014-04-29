@@ -302,6 +302,7 @@ AC_DEFINE_UNQUOTED(GOA_WINDOWS_LIVE_CLIENT_ID,
 if test "$enable_windows_live" != "no"; then
   AC_DEFINE(GOA_WINDOWS_LIVE_ENABLED, 1, [Enable Windows Live data provider])
 fi
+AM_CONDITIONAL(BUILD_WINDOWS_LIVE, [test x$enable_windows_live != xno])
 
 # Telepathy
 AC_ARG_ENABLE([telepathy],

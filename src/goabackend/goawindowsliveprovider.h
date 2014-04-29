@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2011 Red Hat, Inc.
+ * Copyright (C) 2011, 2014 Red Hat, Inc.
  * Copyright (C) 2011 Collabora Ltd.
  *
  * This library is free software; you can redistribute it and/or
@@ -24,7 +24,7 @@
 #ifndef __GOA_WINDOWS_LIVE_PROVIDER_H__
 #define __GOA_WINDOWS_LIVE_PROVIDER_H__
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -35,6 +35,7 @@ G_BEGIN_DECLS
 typedef struct _GoaWindowsLiveProvider GoaWindowsLiveProvider;
 
 GType goa_windows_live_provider_get_type (void) G_GNUC_CONST;
+void  goa_windows_live_provider_register (GIOModule *module);
 
 G_END_DECLS
 
