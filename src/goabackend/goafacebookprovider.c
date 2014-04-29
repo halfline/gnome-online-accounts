@@ -27,15 +27,8 @@
 #include "goaoauth2provider.h"
 #include "goafacebookprovider.h"
 
-/**
- * GoaFacebookProvider:
- *
- * The #GoaFacebookProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaFacebookProvider
 {
-  /*< private >*/
   GoaOAuth2Provider parent_instance;
 };
 
@@ -46,20 +39,7 @@ struct _GoaFacebookProviderClass
   GoaOAuth2ProviderClass parent_class;
 };
 
-/**
- * SECTION:goafacebookprovider
- * @title: GoaFacebookProvider
- * @short_description: A provider for Facebook
- *
- * #GoaFacebookProvider is used for handling Facebook accounts.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaFacebookProvider, goa_facebook_provider, GOA_TYPE_OAUTH2_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-							 g_define_type_id,
-							 "facebook",
-							 0));
+G_DEFINE_DYNAMIC_TYPE (GoaFacebookProvider, goa_facebook_provider, GOA_TYPE_OAUTH2_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -497,6 +477,11 @@ goa_facebook_provider_init (GoaFacebookProvider *client)
 }
 
 static void
+goa_facebook_provider_class_finalize (GoaFacebookProviderClass *klass)
+{
+}
+
+static void
 goa_facebook_provider_class_init (GoaFacebookProviderClass *klass)
 {
   GoaProviderClass *provider_class;
@@ -523,4 +508,11 @@ goa_facebook_provider_class_init (GoaFacebookProviderClass *klass)
   oauth2_class->is_deny_node             = is_deny_node;
   oauth2_class->is_identity_node         = is_identity_node;
   oauth2_class->add_account_key_values   = add_account_key_values;
+}
+
+void
+goa_facebook_provider_register (GIOModule *module)
+{
+  goa_facebook_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_FACEBOOK_PROVIDER, "facebook", 0);
 }

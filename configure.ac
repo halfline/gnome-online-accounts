@@ -281,6 +281,7 @@ AC_DEFINE_UNQUOTED(GOA_FACEBOOK_CLIENT_ID,
 if test "$enable_facebook" != "no"; then
   AC_DEFINE(GOA_FACEBOOK_ENABLED, 1, [Enable Facebook data provider])
 fi
+AM_CONDITIONAL(BUILD_FACEBOOK, [test x$enable_facebook != xno])
 
 # Windows Live
 AC_ARG_ENABLE([windows-live], [AS_HELP_STRING([--enable-windows-live],

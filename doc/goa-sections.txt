@@ -554,16 +554,6 @@ goa_windows_live_provider_get_type
 </SECTION>
 
 <SECTION>
-<FILE>goafacebookprovider</FILE>
-GoaFacebookProvider
-<SUBSECTION Standard>
-GOA_FACEBOOK_PROVIDER
-GOA_IS_FACEBOOK_PROVIDER
-GOA_TYPE_FACEBOOK_PROVIDER
-goa_facebook_provider_get_type
-</SECTION>
-
-<SECTION>
 <FILE>goayahooprovider</FILE>
 GoaYahooProvider
 <SUBSECTION Standard>

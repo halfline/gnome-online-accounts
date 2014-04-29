@@ -24,7 +24,6 @@
 #include "goaprovider-priv.h"
 #include "goaproviderfactory.h"
 #include "goaexchangeprovider.h"
-#include "goafacebookprovider.h"
 #include "goaimapsmtpprovider.h"
 #include "goaowncloudprovider.h"
 #include "goayahooprovider.h"
@@ -769,9 +768,6 @@ ensure_builtins_loaded (void)
        */
 #ifdef GOA_OWNCLOUD_ENABLED
       type = GOA_TYPE_OWNCLOUD_PROVIDER;
-#endif
-#ifdef GOA_FACEBOOK_ENABLED
-      type = GOA_TYPE_FACEBOOK_PROVIDER;
 #endif
 #ifdef GOA_FLICKR_ENABLED
       type = GOA_TYPE_FLICKR_PROVIDER;
