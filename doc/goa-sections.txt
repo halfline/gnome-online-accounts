@@ -544,16 +544,6 @@ goa_exchange_provider_get_type
 </SECTION>
 
 <SECTION>
-<FILE>goagoogleprovider</FILE>
-GoaGoogleProvider
-<SUBSECTION Standard>
-GOA_GOOGLE_PROVIDER
-GOA_IS_GOOGLE_PROVIDER
-GOA_TYPE_GOOGLE_PROVIDER
-goa_google_provider_get_type
-</SECTION>
-
-<SECTION>
 <FILE>goawindowsliveprovider</FILE>
 GoaWindowsLiveProvider
 <SUBSECTION Standard>

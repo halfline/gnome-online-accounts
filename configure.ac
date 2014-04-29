@@ -215,6 +215,7 @@ AC_DEFINE_UNQUOTED(GOA_GOOGLE_CLIENT_SECRET,
 if test "$enable_google" != "no"; then
   AC_DEFINE(GOA_GOOGLE_ENABLED, 1, [Enable Google data provider])
 fi
+AM_CONDITIONAL(BUILD_GOOGLE, [test x$enable_google != xno])
 
 # IMAP/SMTP
 AC_ARG_ENABLE([imap-smtp],

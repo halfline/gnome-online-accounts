@@ -82,7 +82,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goaexchangeprovider.h		goaexchangeprovider.c		\
 	goaoauthprovider.h		goaoauthprovider.c		\
 	goaoauth2provider.h		goaoauth2provider.c		\
-	goagoogleprovider.h		goagoogleprovider.c		\
 	goafacebookprovider.h		goafacebookprovider.c		\
 	goaimapsmtpprovider.h		goaimapsmtpprovider.c		\
 	goaowncloudprovider.h		goaowncloudprovider.c		\
@@ -98,6 +97,31 @@ libgoa_backend_1_0_la_SOURCES =						\
 	$(top_builddir)/src/goaidentity/org.gnome.Identity.c		\
 	$(top_builddir)/src/goaidentity/org.freedesktop.realmd.c	\
 	$(NULL)
+
+if BUILD_GOOGLE
+goamodule_LTLIBRARIES += libgoagoogle.la
+libgoagoogle_la_SOURCES =					\
+	goagooglemodule.c					\
+	goagoogleprovider.c					\
+	goagoogleprovider.h					\
+	$(NULL)
+libgoagoogle_la_CFLAGS =					\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(JSON_GLIB_CFLAGS)					\
+	$(REST_CFLAGS)						\
+	$(WEBKIT_GTK_CFLAGS)					\
+	$(NULL)
+libgoagoogle_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(JSON_GLIB_LIBS)					\
+	$(REST_LIBS)						\
+	$(WEBKIT_GTK_LIBS)					\
+	$(NULL)
+libgoagoogle_la_LDFLAGS = $(module_flags)
+endif
 
 if BUILD_KERBEROS
 libgoa_backend_1_0_la_SOURCES +=					\

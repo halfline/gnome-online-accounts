@@ -27,15 +27,8 @@
 #include "goaoauth2provider.h"
 #include "goagoogleprovider.h"
 
-/**
- * GoaGoogleProvider:
- *
- * The #GoaGoogleProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaGoogleProvider
 {
-  /*< private >*/
   GoaOAuth2Provider parent_instance;
 };
 
@@ -46,20 +39,7 @@ struct _GoaGoogleProviderClass
   GoaOAuth2ProviderClass parent_class;
 };
 
-/**
- * SECTION:goagoogleprovider
- * @title: GoaGoogleProvider
- * @short_description: A provider for Google
- *
- * #GoaGoogleProvider is used for handling Google accounts.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaGoogleProvider, goa_google_provider, GOA_TYPE_OAUTH2_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-							 g_define_type_id,
-							 "google",
-							 0));
+G_DEFINE_DYNAMIC_TYPE (GoaGoogleProvider, goa_google_provider, GOA_TYPE_OAUTH2_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -646,6 +626,11 @@ goa_google_provider_init (GoaGoogleProvider *client)
 }
 
 static void
+goa_google_provider_class_finalize (GoaGoogleProviderClass *klass)
+{
+}
+
+static void
 goa_google_provider_class_init (GoaGoogleProviderClass *klass)
 {
   GoaProviderClass *provider_class;
@@ -673,4 +658,11 @@ goa_google_provider_class_init (GoaGoogleProviderClass *klass)
   oauth2_class->get_token_uri             = get_token_uri;
   oauth2_class->get_use_mobile_browser    = get_use_mobile_browser;
   oauth2_class->add_account_key_values    = add_account_key_values;
+}
+
+void
+goa_google_provider_register (GIOModule *module)
+{
+  goa_google_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_GOOGLE_PROVIDER, "google", 0);
 }

@@ -24,7 +24,6 @@
 #include "goaprovider-priv.h"
 #include "goaproviderfactory.h"
 #include "goaexchangeprovider.h"
-#include "goagoogleprovider.h"
 #include "goafacebookprovider.h"
 #include "goaimapsmtpprovider.h"
 #include "goaowncloudprovider.h"
@@ -768,9 +767,6 @@ ensure_builtins_loaded (void)
        * important because it affects the order in which they are
        * returned by goa_provider_get_all.
        */
-#ifdef GOA_GOOGLE_ENABLED
-      type = GOA_TYPE_GOOGLE_PROVIDER;
-#endif
 #ifdef GOA_OWNCLOUD_ENABLED
       type = GOA_TYPE_OWNCLOUD_PROVIDER;
 #endif
