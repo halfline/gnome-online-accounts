@@ -27,7 +27,6 @@
 #include "goaimapsmtpprovider.h"
 #include "goaowncloudprovider.h"
 #include "goayahooprovider.h"
-#include "goaflickrprovider.h"
 #include "goatelepathyfactory.h"
 #include "goapocketprovider.h"
 
@@ -767,9 +766,6 @@ ensure_builtins_loaded (void)
        */
 #ifdef GOA_OWNCLOUD_ENABLED
       type = GOA_TYPE_OWNCLOUD_PROVIDER;
-#endif
-#ifdef GOA_FLICKR_ENABLED
-      type = GOA_TYPE_FLICKR_PROVIDER;
 #endif
 #ifdef GOA_POCKET_ENABLED
       type = GOA_TYPE_POCKET_PROVIDER;

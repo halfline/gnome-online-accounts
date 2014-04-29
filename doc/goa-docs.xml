@@ -170,7 +170,6 @@
       <title>Providers</title>
       <xi:include href="xml/goaexchangeprovider.xml"/>
       <xi:include href="xml/goayahooprovider.xml"/>
-      <xi:include href="xml/goaflickrprovider.xml"/>
       <xi:include href="xml/goatelepathyfactory.xml"/>
       <xi:include href="xml/goatelepathyprovider.xml"/>
     </chapter>

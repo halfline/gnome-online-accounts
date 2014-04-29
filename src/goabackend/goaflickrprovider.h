@@ -1,6 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
  * Copyright (C) 2012 Willem van Engen <gnome@willem.engen.nl>
+ * Copyright (C) 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +24,7 @@
 #ifndef __GOA_FLICKR_PROVIDER_H__
 #define __GOA_FLICKR_PROVIDER_H__
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -34,6 +35,7 @@ G_BEGIN_DECLS
 typedef struct _GoaFlickrProvider GoaFlickrProvider;
 
 GType goa_flickr_provider_get_type (void) G_GNUC_CONST;
+void  goa_flickr_provider_register (GIOModule *module);
 
 G_END_DECLS
 

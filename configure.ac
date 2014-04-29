@@ -187,6 +187,7 @@ AC_DEFINE_UNQUOTED(GOA_FLICKR_CONSUMER_SECRET, ["$with_flickr_consumer_secret"],
 if test "$enable_flickr" != "no"; then
   AC_DEFINE(GOA_FLICKR_ENABLED, 1, [Enable Flickr data provider])
 fi
+AM_CONDITIONAL(BUILD_FLICKR, [test x$enable_flickr != xno])
 
 # Google
 AC_ARG_ENABLE([google], [AS_HELP_STRING([--enable-google], [Enable Google provider])], [], [enable_google=yes])

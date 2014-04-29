@@ -85,7 +85,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goaimapsmtpprovider.h		goaimapsmtpprovider.c		\
 	goaowncloudprovider.h		goaowncloudprovider.c		\
 	goayahooprovider.h		goayahooprovider.c		\
-	goaflickrprovider.h		goaflickrprovider.c		\
 	goatelepathyfactory.h		goatelepathyfactory.c		\
 	goatelepathyprovider.h		goatelepathyprovider.c		\
 	goapocketprovider.h		goapocketprovider.c		\
@@ -119,6 +118,31 @@ libgoafacebook_la_LIBADD =					\
 	$(WEBKIT_GTK_LIBS)					\
 	$(NULL)
 libgoafacebook_la_LDFLAGS = $(module_flags)
+endif
+
+if BUILD_FLICKR
+goamodule_LTLIBRARIES += libgoaflickr.la
+libgoaflickr_la_SOURCES =					\
+	goaflickrmodule.c					\
+	goaflickrprovider.c					\
+	goaflickrprovider.h					\
+	$(NULL)
+libgoaflickr_la_CFLAGS =					\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(JSON_GLIB_CFLAGS)					\
+	$(REST_CFLAGS)						\
+	$(WEBKIT_GTK_CFLAGS)					\
+	$(NULL)
+libgoaflickr_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(JSON_GLIB_LIBS)					\
+	$(REST_LIBS)						\
+	$(WEBKIT_GTK_LIBS)					\
+	$(NULL)
+libgoaflickr_la_LDFLAGS = $(module_flags)
 endif
 
 if BUILD_GOOGLE

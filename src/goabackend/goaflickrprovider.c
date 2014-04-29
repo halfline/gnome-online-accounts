@@ -1,7 +1,7 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
  * Copyright (C) 2011 Willem van Engen <gnome@willem.engen.nl>
- * Copyright (C) 2012 Red Hat, Inc.
+ * Copyright (C) 2012, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -28,15 +28,8 @@
 #include "goaoauthprovider.h"
 #include "goaflickrprovider.h"
 
-/**
- * GoaFlickrProvider:
- *
- * The #GoaFlickrProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaFlickrProvider
 {
-  /*< private >*/
   GoaOAuthProvider parent_instance;
 };
 
@@ -47,20 +40,7 @@ struct _GoaFlickrProviderClass
   GoaOAuthProviderClass parent_class;
 };
 
-/**
- * SECTION:goaflickrprovider
- * @title: GoaFlickrProvider
- * @short_description: A provider for Flickr
- *
- * #GoaFlickrProvider is used for handling Flickr accounts.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaFlickrProvider, goa_flickr_provider, GOA_TYPE_OAUTH_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-							 g_define_type_id,
-							 "flickr",
-							 0));
+G_DEFINE_DYNAMIC_TYPE (GoaFlickrProvider, goa_flickr_provider, GOA_TYPE_OAUTH_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -440,6 +420,11 @@ goa_flickr_provider_init (GoaFlickrProvider *client)
 }
 
 static void
+goa_flickr_provider_class_finalize (GoaFlickrProviderClass *klass)
+{
+}
+
+static void
 goa_flickr_provider_class_init (GoaFlickrProviderClass *klass)
 {
   GoaProviderClass *provider_class;
@@ -467,4 +452,11 @@ goa_flickr_provider_class_init (GoaFlickrProviderClass *klass)
   oauth_class->get_use_external_browser = get_use_external_browser;
   oauth_class->parse_request_token_error = parse_request_token_error;
   oauth_class->add_account_key_values    = add_account_key_values;
+}
+
+void
+goa_flickr_provider_register (GIOModule *module)
+{
+  goa_flickr_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_FLICKR_PROVIDER, "flickr", 0);
 }
