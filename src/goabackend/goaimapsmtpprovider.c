@@ -28,15 +28,8 @@
 #include "goasmtpauth.h"
 #include "goautils.h"
 
-/**
- * GoaImapSmtpProvider:
- *
- * The #GoaImapSmtpProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaImapSmtpProvider
 {
-  /*< private >*/
   GoaProvider parent_instance;
 };
 
@@ -47,20 +40,7 @@ struct _GoaImapSmtpProviderClass
   GoaProviderClass parent_class;
 };
 
-/**
- * SECTION:goaimapsmtpprovider
- * @title: GoaImapSmtpProvider
- * @short_description: A provider for IMAP and SMTP servers
- *
- * #GoaImapSmtpProvider is used to access IMAP and SMTP mail servers.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaImapSmtpProvider, goa_imap_smtp_provider, GOA_TYPE_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-							 g_define_type_id,
-							 "imap_smtp",
-							 0));
+G_DEFINE_DYNAMIC_TYPE (GoaImapSmtpProvider, goa_imap_smtp_provider, GOA_TYPE_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -1585,6 +1565,11 @@ goa_imap_smtp_provider_init (GoaImapSmtpProvider *provider)
 }
 
 static void
+goa_imap_smtp_provider_class_finalize (GoaImapSmtpProviderClass *klass)
+{
+}
+
+static void
 goa_imap_smtp_provider_class_init (GoaImapSmtpProviderClass *klass)
 {
   GoaProviderClass *provider_class;
@@ -1660,4 +1645,13 @@ on_handle_get_password (GoaPasswordBased      *interface,
     g_variant_unref (credentials);
   g_object_unref (provider);
   return TRUE; /* invocation was handled */
+}
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+void
+goa_imap_smtp_provider_register (GIOModule *module)
+{
+  goa_imap_smtp_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_IMAP_SMTP_PROVIDER, "imap_smtp", 0);
 }

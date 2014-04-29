@@ -81,7 +81,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goamailclient.h			goamailclient.c			\
 	goaoauthprovider.h		goaoauthprovider.c		\
 	goaoauth2provider.h		goaoauth2provider.c		\
-	goaimapsmtpprovider.h		goaimapsmtpprovider.c		\
 	goayahooprovider.h		goayahooprovider.c		\
 	goatelepathyfactory.h		goatelepathyfactory.c		\
 	goatelepathyprovider.h		goatelepathyprovider.c		\
@@ -184,6 +183,25 @@ libgoagoogle_la_LIBADD =					\
 	$(WEBKIT_GTK_LIBS)					\
 	$(NULL)
 libgoagoogle_la_LDFLAGS = $(module_flags)
+endif
+
+if BUILD_IMAP_SMTP
+goamodule_LTLIBRARIES += libgoaimapsmtp.la
+libgoaimapsmtp_la_SOURCES =					\
+	goaimapsmtpmodule.c					\
+	goaimapsmtpprovider.c					\
+	goaimapsmtpprovider.h					\
+	$(NULL)
+libgoaimapsmtp_la_CFLAGS =					\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(NULL)
+libgoaimapsmtp_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(NULL)
+libgoaimapsmtp_la_LDFLAGS = $(module_flags)
 endif
 
 if BUILD_KERBEROS

@@ -228,6 +228,7 @@ AC_ARG_ENABLE([imap-smtp],
 if test "$enable_imap_smtp" != "no"; then
   AC_DEFINE(GOA_IMAP_SMTP_ENABLED, 1, [Enable IMAP/SMTP data provider])
 fi
+AM_CONDITIONAL(BUILD_IMAP_SMTP, [test x$enable_imap_smtp != xno])
 
 # ownCloud
 AC_ARG_ENABLE([owncloud],

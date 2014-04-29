@@ -23,7 +23,6 @@
 #include "goaprovider.h"
 #include "goaprovider-priv.h"
 #include "goaproviderfactory.h"
-#include "goaimapsmtpprovider.h"
 #include "goayahooprovider.h"
 #include "goatelepathyfactory.h"
 
@@ -761,9 +760,6 @@ ensure_builtins_loaded (void)
        * important because it affects the order in which they are
        * returned by goa_provider_get_all.
        */
-#ifdef GOA_IMAP_SMTP_ENABLED
-      type = GOA_TYPE_IMAP_SMTP_PROVIDER;
-#endif
 #ifdef GOA_KERBEROS_ENABLED
       type = GOA_TYPE_KERBEROS_PROVIDER;
 #endif
