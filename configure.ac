@@ -145,6 +145,12 @@ if test "$enable_inspector" != "no"; then
   AC_DEFINE(GOA_INSPECTOR_ENABLED, 1, [Enable a WebKitWebInspector for the embedded web view])
 fi
 
+AC_PATH_PROG(GIO_QUERYMODULES, gio-querymodules)
+AC_SUBST(GIO_QUERYMODULES)
+
+GOA_MODULE_DIR='${libdir}/goa-1.0/modules'
+AC_SUBST(GOA_MODULE_DIR)
+
 # service providers
 #
 

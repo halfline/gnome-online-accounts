@@ -28,4 +28,14 @@ GITIGNOREFILES = \
 	m4 \
 	$(NULL)
 
+install-exec-hook:
+	if test -n "$(GIO_QUERYMODULES)" -a -z "$(DESTDIR)"; then \
+		$(GIO_QUERYMODULES) $(GOA_MODULE_DIR) ;           \
+	fi
+
+uninstall-hook:
+	if test -n "$(GIO_QUERYMODULES)" -a -z "$(DESTDIR)"; then \
+		$(GIO_QUERYMODULES) $(GOA_MODULE_DIR) ;           \
+	fi
+
 -include $(top_srcdir)/git.mk

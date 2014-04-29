@@ -762,6 +762,8 @@ ensure_builtins_loaded (void)
     {
       static volatile GType type = 0;
 
+      g_io_modules_scan_all_in_directory (GOA_MODULE_DIR);
+
       /* The order is in which the providers' types are created is
        * important because it affects the order in which they are
        * returned by goa_provider_get_all.

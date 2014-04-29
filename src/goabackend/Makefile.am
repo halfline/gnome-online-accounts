@@ -2,6 +2,8 @@
 NULL =
 CLEANFILES =
 EXTRA_DIST =
+goamodule_LTLIBRARIES =
+goamoduledir = $(GOA_MODULE_DIR)
 
 AM_CPPFLAGS = 							\
 	-I$(top_builddir)/src -I$(top_srcdir)/src		\
@@ -12,6 +14,7 @@ AM_CPPFLAGS = 							\
 	-DG_LOG_DOMAIN=\"GoaBackend\"				\
 	-DGOA_BACKEND_COMPILATION				\
 	-DGOA_API_IS_SUBJECT_TO_CHANGE				\
+	-DGOA_MODULE_DIR=\"$(GOA_MODULE_DIR)\"			\
 	-DPACKAGE_LIBEXEC_DIR=\""$(libexecdir)"\" 		\
 	-DPACKAGE_SYSCONF_DIR=\""$(sysconfdir)"\" 		\
 	-DPACKAGE_DATA_DIR=\""$(pkgdatadir)"\" 			\
@@ -21,6 +24,14 @@ AM_CPPFLAGS = 							\
 	-DPACKAGE_LIB_DIR=\""$(libdir)"\" 			\
 	-D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT			\
 	$(WARN_CFLAGS)						\
+	$(NULL)
+
+module_flags =								\
+	-export-dynamic							\
+	-avoid-version							\
+	-module								\
+	-no-undefined							\
+	-export-symbols-regex '^g_io_module_(load|unload|query)'	\
 	$(NULL)
 
 # ----------------------------------------------------------------------------------------------------
