@@ -336,6 +336,7 @@ AC_DEFINE_UNQUOTED(GOA_POCKET_CLIENT_ID,
 if test "$enable_pocket" != "no"; then
   AC_DEFINE(GOA_POCKET_ENABLED, 1, [Enable Pocket data provider])
 fi
+AM_CONDITIONAL(BUILD_POCKET, [test x$enable_pocket != xno])
 
 # Kerberos
 AC_ARG_ENABLE([kerberos],

@@ -87,7 +87,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goayahooprovider.h		goayahooprovider.c		\
 	goatelepathyfactory.h		goatelepathyfactory.c		\
 	goatelepathyprovider.h		goatelepathyprovider.c		\
-	goapocketprovider.h		goapocketprovider.c		\
 	goautils.h			goautils.c			\
 	goawebview.h			goawebview.c			\
 	nautilus-floating-bar.h		nautilus-floating-bar.c		\
@@ -173,6 +172,31 @@ endif
 if BUILD_KERBEROS
 libgoa_backend_1_0_la_SOURCES +=					\
 	goakerberosprovider.h		goakerberosprovider.c
+endif
+
+if BUILD_POCKET
+goamodule_LTLIBRARIES += libgoapocket.la
+libgoapocket_la_SOURCES =					\
+	goapocketmodule.c					\
+	goapocketprovider.c					\
+	goapocketprovider.h					\
+	$(NULL)
+libgoapocket_la_CFLAGS =					\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(JSON_GLIB_CFLAGS)					\
+	$(REST_CFLAGS)						\
+	$(WEBKIT_GTK_CFLAGS)					\
+	$(NULL)
+libgoapocket_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(JSON_GLIB_LIBS)					\
+	$(REST_LIBS)						\
+	$(WEBKIT_GTK_LIBS)					\
+	$(NULL)
+libgoapocket_la_LDFLAGS = $(module_flags)
 endif
 
 if BUILD_WINDOWS_LIVE

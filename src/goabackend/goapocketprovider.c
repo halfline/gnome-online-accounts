@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2013 Red Hat, Inc.
+ * Copyright (C) 2013, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,15 +30,8 @@
 
 #define V3_OAUTH_AUTHORIZE_URL "https://getpocket.com/v3/oauth/authorize"
 
-/**
- * GoaPocketProvider:
- *
- * The #GoaPocketProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaPocketProvider
 {
-  /*< private >*/
   GoaOAuth2Provider parent_instance;
 
   /* request token as gathered from Step 2:
@@ -54,20 +47,7 @@ struct _GoaPocketProviderClass
   GoaOAuth2ProviderClass parent_class;
 };
 
-/**
- * SECTION:goapocketprovider
- * @title: GoaPocketProvider
- * @short_description: A provider for Pocket accounts
- *
- * #GoaPocketProvider is used for handling Pocket accounts.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaPocketProvider, goa_pocket_provider, GOA_TYPE_OAUTH2_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-                                                         g_define_type_id,
-                                                         "pocket",
-                                                         0));
+G_DEFINE_DYNAMIC_TYPE (GoaPocketProvider, goa_pocket_provider, GOA_TYPE_OAUTH2_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -453,6 +433,11 @@ goa_pocket_provider_finalize (GObject *object)
 }
 
 static void
+goa_pocket_provider_class_finalize (GoaPocketProviderClass *klass)
+{
+}
+
+static void
 goa_pocket_provider_class_init (GoaPocketProviderClass *klass)
 {
   GObjectClass *object_class = G_OBJECT_CLASS (klass);
@@ -480,4 +465,11 @@ goa_pocket_provider_class_init (GoaPocketProviderClass *klass)
   oauth2_class->add_account_key_values    = add_account_key_values;
   oauth2_class->process_redirect_url      = process_redirect_url;
   oauth2_class->get_authentication_cookie = get_authentication_cookie;
+}
+
+void
+goa_pocket_provider_register (GIOModule *module)
+{
+  goa_pocket_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_POCKET_PROVIDER, "pocket", 0);
 }

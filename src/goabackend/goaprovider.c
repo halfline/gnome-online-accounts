@@ -28,7 +28,6 @@
 #include "goaowncloudprovider.h"
 #include "goayahooprovider.h"
 #include "goatelepathyfactory.h"
-#include "goapocketprovider.h"
 
 #ifdef GOA_KERBEROS_ENABLED
 #include "goakerberosprovider.h"
@@ -766,9 +765,6 @@ ensure_builtins_loaded (void)
        */
 #ifdef GOA_OWNCLOUD_ENABLED
       type = GOA_TYPE_OWNCLOUD_PROVIDER;
-#endif
-#ifdef GOA_POCKET_ENABLED
-      type = GOA_TYPE_POCKET_PROVIDER;
 #endif
 #ifdef GOA_EXCHANGE_ENABLED
       type = GOA_TYPE_EXCHANGE_PROVIDER;
