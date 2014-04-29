@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2012, 2013 Red Hat, Inc.
+ * Copyright (C) 2012, 2013, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,15 +30,8 @@
 #include "goaowncloudprovider.h"
 #include "goautils.h"
 
-/**
- * GoaOwncloudProvider:
- *
- * The #GoaOwncloudProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaOwncloudProvider
 {
-  /*< private >*/
   GoaProvider parent_instance;
 };
 
@@ -49,20 +42,7 @@ struct _GoaOwncloudProviderClass
   GoaProviderClass parent_class;
 };
 
-/**
- * SECTION:goaowncloudprovider
- * @title: GoaOwncloudProvider
- * @short_description: A provider for ownCloud servers
- *
- * #GoaOwncloudProvider is used to access ownCloud servers.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaOwncloudProvider, goa_owncloud_provider, GOA_TYPE_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-							 g_define_type_id,
-							 "owncloud",
-							 0));
+G_DEFINE_DYNAMIC_TYPE (GoaOwncloudProvider, goa_owncloud_provider, GOA_TYPE_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -1124,6 +1104,11 @@ goa_owncloud_provider_init (GoaOwncloudProvider *provider)
 }
 
 static void
+goa_owncloud_provider_class_finalize (GoaOwncloudProviderClass *klass)
+{
+}
+
+static void
 goa_owncloud_provider_class_init (GoaOwncloudProviderClass *klass)
 {
   GoaProviderClass *provider_class;
@@ -1195,4 +1180,13 @@ on_handle_get_password (GoaPasswordBased      *interface,
     g_variant_unref (credentials);
   g_object_unref (provider);
   return TRUE; /* invocation was handled */
+}
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+void
+goa_owncloud_provider_register (GIOModule *module)
+{
+  goa_owncloud_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_OWNCLOUD_PROVIDER, "owncloud", 0);
 }

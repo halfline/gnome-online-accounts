@@ -82,7 +82,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goaoauthprovider.h		goaoauthprovider.c		\
 	goaoauth2provider.h		goaoauth2provider.c		\
 	goaimapsmtpprovider.h		goaimapsmtpprovider.c		\
-	goaowncloudprovider.h		goaowncloudprovider.c		\
 	goayahooprovider.h		goayahooprovider.c		\
 	goatelepathyfactory.h		goatelepathyfactory.c		\
 	goatelepathyprovider.h		goatelepathyprovider.c		\
@@ -190,6 +189,27 @@ endif
 if BUILD_KERBEROS
 libgoa_backend_1_0_la_SOURCES +=					\
 	goakerberosprovider.h		goakerberosprovider.c
+endif
+
+if BUILD_OWNCLOUD
+goamodule_LTLIBRARIES += libgoaowncloud.la
+libgoaowncloud_la_SOURCES =					\
+	goaowncloudmodule.c					\
+	goaowncloudprovider.c					\
+	goaowncloudprovider.h					\
+	$(NULL)
+libgoaowncloud_la_CFLAGS =					\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(LIBSOUP_CFLAGS)					\
+	$(NULL)
+libgoaowncloud_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(LIBSOUP_LIBS)						\
+	$(NULL)
+libgoaowncloud_la_LDFLAGS = $(module_flags)
 endif
 
 if BUILD_POCKET

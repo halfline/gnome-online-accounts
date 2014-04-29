@@ -238,6 +238,7 @@ AC_ARG_ENABLE([owncloud],
 if test "$enable_owncloud" != "no"; then
   AC_DEFINE(GOA_OWNCLOUD_ENABLED, 1, [Enable ownCloud data provider])
 fi
+AM_CONDITIONAL(BUILD_OWNCLOUD, [test x$enable_owncloud != xno])
 
 # Yahoo
 AC_ARG_ENABLE([yahoo], [AS_HELP_STRING([--enable-yahoo], [Enable Yahoo provider])], [], [enable_yahoo=no])
