@@ -204,8 +204,24 @@ libgoaimapsmtp_la_LDFLAGS = $(module_flags)
 endif
 
 if BUILD_KERBEROS
-libgoa_backend_1_0_la_SOURCES +=					\
-	goakerberosprovider.h		goakerberosprovider.c
+goamodule_LTLIBRARIES += libgoakerberos.la
+libgoakerberos_la_SOURCES =					\
+	goakerberosmodule.c					\
+	goakerberosprovider.c					\
+	goakerberosprovider.h					\
+	$(NULL)
+libgoakerberos_la_CFLAGS =					\
+	$(GCR_CFLAGS) 						\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(NULL)
+libgoakerberos_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GCR_LIBS) 						\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(NULL)
+libgoakerberos_la_LDFLAGS = $(module_flags)
 endif
 
 if BUILD_OWNCLOUD
@@ -307,7 +323,6 @@ endif
 libgoa_backend_1_0_la_CFLAGS =					\
 	$(WEBKIT_GTK_CFLAGS)					\
 	$(JSON_GLIB_CFLAGS)					\
-	$(GCR_CFLAGS) 						\
 	$(GLIB_CFLAGS) 						\
 	$(GTK_CFLAGS) 						\
 	$(REST_CFLAGS)						\
@@ -322,7 +337,6 @@ libgoa_backend_1_0_la_LIBADD = 					\
 	$(top_builddir)/src/goa/libgoa-1.0.la			\
 	$(WEBKIT_GTK_LIBS)					\
 	$(JSON_GLIB_LIBS)					\
-	$(GCR_LIBS) 						\
 	$(GLIB_LIBS) 						\
 	$(GTK_LIBS) 						\
 	$(REST_LIBS)						\

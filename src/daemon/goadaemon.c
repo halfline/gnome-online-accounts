@@ -181,6 +181,7 @@ goa_daemon_init (GoaDaemon *daemon)
   gchar *path;
 #ifdef GOA_KERBEROS_ENABLED
   GError *error = NULL;
+  GoaProvider *provider;
 #endif
 
   /* this will force associating errors in the GOA_ERROR error domain
@@ -228,13 +229,19 @@ goa_daemon_init (GoaDaemon *daemon)
   g_dbus_object_manager_server_set_connection (daemon->object_manager, daemon->connection);
 
 #ifdef GOA_KERBEROS_ENABLED
-  daemon->identity_service = goa_identity_service_new ();
-  if (!goa_identity_service_activate (daemon->identity_service,
-                                      &error))
+  provider = goa_provider_get_for_provider_type ("kerberos");
+  if (provider != NULL)
     {
-      g_warning ("Error activating identity service: %s", error->message);
-      g_error_free (error);
-      g_clear_object (&daemon->identity_service);
+      daemon->identity_service = goa_identity_service_new ();
+      if (!goa_identity_service_activate (daemon->identity_service,
+                                          &error))
+        {
+          g_warning ("Error activating identity service: %s", error->message);
+          g_error_free (error);
+          g_clear_object (&daemon->identity_service);
+        }
+
+      g_object_unref (provider);
     }
 #endif
 }

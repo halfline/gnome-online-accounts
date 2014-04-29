@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2012 Red Hat, Inc.
+ * Copyright (C) 2012, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,7 @@
 #ifndef __GOA_KERBEROS_PROVIDER_H__
 #define __GOA_KERBEROS_PROVIDER_H__
 
-#include <glib-object.h>
+#include <gio/gio.h>
 
 G_BEGIN_DECLS
 
@@ -34,6 +34,7 @@ G_BEGIN_DECLS
 typedef struct _GoaKerberosProvider GoaKerberosProvider;
 
 GType goa_kerberos_provider_get_type (void) G_GNUC_CONST;
+void  goa_kerberos_provider_register (GIOModule *module);
 
 G_END_DECLS
 

@@ -25,10 +25,6 @@
 #include "goaproviderfactory.h"
 #include "goatelepathyfactory.h"
 
-#ifdef GOA_KERBEROS_ENABLED
-#include "goakerberosprovider.h"
-#endif
-
 #include "goautils.h"
 
 /**
@@ -759,9 +755,6 @@ ensure_builtins_loaded (void)
        * important because it affects the order in which they are
        * returned by goa_provider_get_all.
        */
-#ifdef GOA_KERBEROS_ENABLED
-      type = GOA_TYPE_KERBEROS_PROVIDER;
-#endif
 #ifdef GOA_TELEPATHY_ENABLED
       type = GOA_TYPE_TELEPATHY_FACTORY;
 #endif

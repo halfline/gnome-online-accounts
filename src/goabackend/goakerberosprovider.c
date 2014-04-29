@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2012, 2013 Red Hat, Inc.
+ * Copyright (C) 2012, 2013, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -31,15 +31,8 @@
 
 #include "org.freedesktop.realmd.h"
 
-/**
- * GoaKerberosProvider:
- *
- * The #GoaKerberosProvider structure contains only private request and should
- * only be accessed using the provided API.
- */
 struct _GoaKerberosProvider
 {
-  /*< private >*/
   GoaProvider parent_instance;
   GoaIdentityServiceManager *identity_manager;
   GDBusObjectManager *object_manager;
@@ -52,20 +45,7 @@ struct _GoaKerberosProviderClass
   GoaProviderClass parent_class;
 };
 
-/**
- * SECTION:goakerberosprovider
- * @title: GoaKerberosProvider
- * @short_description: A provider for enterprise identity servers
- *
- * #GoaKerberosProvider is used to access enterprise identity servers.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaKerberosProvider, goa_kerberos_provider, GOA_TYPE_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-                                                         g_define_type_id,
-                                                         "kerberos",
-                                                         0));
+G_DEFINE_DYNAMIC_TYPE (GoaKerberosProvider, goa_kerberos_provider, GOA_TYPE_PROVIDER);
 
 static const gchar *
 get_provider_type (GoaProvider *provider)
@@ -1916,6 +1896,11 @@ goa_kerberos_provider_init (GoaKerberosProvider *provider)
 }
 
 static void
+goa_kerberos_provider_class_finalize (GoaKerberosProviderClass *klass)
+{
+}
+
+static void
 goa_kerberos_provider_class_init (GoaKerberosProviderClass *kerberos_class)
 {
   GoaProviderClass *provider_class;
@@ -1930,4 +1915,11 @@ goa_kerberos_provider_class_init (GoaKerberosProviderClass *kerberos_class)
   provider_class->refresh_account            = refresh_account;
   provider_class->show_account               = show_account;
   provider_class->ensure_credentials_sync    = ensure_credentials_sync;
+}
+
+void
+goa_kerberos_provider_register (GIOModule *module)
+{
+  goa_kerberos_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_KERBEROS_PROVIDER, "kerberos", 0);
 }
