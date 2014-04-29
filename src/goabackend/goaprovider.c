@@ -23,7 +23,6 @@
 #include "goaprovider.h"
 #include "goaprovider-priv.h"
 #include "goaproviderfactory.h"
-#include "goayahooprovider.h"
 #include "goatelepathyfactory.h"
 
 #ifdef GOA_KERBEROS_ENABLED
@@ -762,9 +761,6 @@ ensure_builtins_loaded (void)
        */
 #ifdef GOA_KERBEROS_ENABLED
       type = GOA_TYPE_KERBEROS_PROVIDER;
-#endif
-#ifdef GOA_YAHOO_ENABLED
-      type = GOA_TYPE_YAHOO_PROVIDER;
 #endif
 #ifdef GOA_TELEPATHY_ENABLED
       type = GOA_TYPE_TELEPATHY_FACTORY;

@@ -264,6 +264,7 @@ AC_DEFINE_UNQUOTED(GOA_YAHOO_CONSUMER_SECRET, ["$with_yahoo_consumer_secret"], [
 if test "$enable_yahoo" != "no"; then
   AC_DEFINE(GOA_YAHOO_ENABLED, 1, [Enable Yahoo data provider])
 fi
+AM_CONDITIONAL(BUILD_YAHOO, [test x$enable_yahoo != xno])
 
 # Facebook
 AC_ARG_ENABLE([facebook], [AS_HELP_STRING([--enable-facebook],

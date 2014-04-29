@@ -81,7 +81,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goamailclient.h			goamailclient.c			\
 	goaoauthprovider.h		goaoauthprovider.c		\
 	goaoauth2provider.h		goaoauth2provider.c		\
-	goayahooprovider.h		goayahooprovider.c		\
 	goatelepathyfactory.h		goatelepathyfactory.c		\
 	goatelepathyprovider.h		goatelepathyprovider.c		\
 	goautils.h			goautils.c			\
@@ -278,6 +277,31 @@ libgoawindowslive_la_LIBADD =					\
 	$(WEBKIT_GTK_LIBS)					\
 	$(NULL)
 libgoawindowslive_la_LDFLAGS = $(module_flags)
+endif
+
+if BUILD_YAHOO
+goamodule_LTLIBRARIES += libgoayahoo.la
+libgoayahoo_la_SOURCES =					\
+	goayahoomodule.c					\
+	goayahooprovider.c					\
+	goayahooprovider.h					\
+	$(NULL)
+libgoayahoo_la_CFLAGS =						\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(JSON_GLIB_CFLAGS)					\
+	$(REST_CFLAGS)						\
+	$(WEBKIT_GTK_CFLAGS)					\
+	$(NULL)
+libgoayahoo_la_LIBADD =						\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(JSON_GLIB_LIBS)					\
+	$(REST_LIBS)						\
+	$(WEBKIT_GTK_LIBS)					\
+	$(NULL)
+libgoayahoo_la_LDFLAGS = $(module_flags)
 endif
 
 libgoa_backend_1_0_la_CFLAGS =					\

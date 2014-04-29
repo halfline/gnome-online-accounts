@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2011, 2012, 2013 Red Hat, Inc.
+ * Copyright (C) 2011, 2012, 2013, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,15 +27,8 @@
 #include "goaoauthprovider.h"
 #include "goayahooprovider.h"
 
-/**
- * GoaYahooProvider:
- *
- * The #GoaYahooProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaYahooProvider
 {
-  /*< private >*/
   GoaOAuthProvider parent_instance;
 };
 
@@ -46,20 +39,7 @@ struct _GoaYahooProviderClass
   GoaOAuthProviderClass parent_class;
 };
 
-/**
- * SECTION:goayahooprovider
- * @title: GoaYahooProvider
- * @short_description: A provider for Yahoo
- *
- * #GoaYahooProvider is used for handling Yahoo accounts.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaYahooProvider, goa_yahoo_provider, GOA_TYPE_OAUTH_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-							 g_define_type_id,
-							 "yahoo",
-							 0));
+G_DEFINE_DYNAMIC_TYPE (GoaYahooProvider, goa_yahoo_provider, GOA_TYPE_OAUTH_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -411,6 +391,11 @@ goa_yahoo_provider_init (GoaYahooProvider *client)
 }
 
 static void
+goa_yahoo_provider_class_finalize (GoaYahooProviderClass *klass)
+{
+}
+
+static void
 goa_yahoo_provider_class_init (GoaYahooProviderClass *klass)
 {
   GoaProviderClass *provider_class;
@@ -437,4 +422,11 @@ goa_yahoo_provider_class_init (GoaYahooProviderClass *klass)
   oauth_class->get_authentication_cookie = get_authentication_cookie;
   oauth_class->get_use_external_browser = get_use_external_browser;
   oauth_class->parse_request_token_error = parse_request_token_error;
+}
+
+void
+goa_yahoo_provider_register (GIOModule *module)
+{
+  goa_yahoo_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_YAHOO_PROVIDER, "yahoo", 0);
 }
