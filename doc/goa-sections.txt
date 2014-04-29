@@ -534,16 +534,6 @@ goa_oauth_provider_get_type
 </SECTION>
 
 <SECTION>
-<FILE>goaexchangeprovider</FILE>
-GoaExchangeProvider
-<SUBSECTION Standard>
-GOA_EXCHANGE_PROVIDER
-GOA_IS_EXCHANGE_PROVIDER
-GOA_TYPE_EXCHANGE_PROVIDER
-goa_exchange_provider_get_type
-</SECTION>
-
-<SECTION>
 <FILE>goayahooprovider</FILE>
 GoaYahooProvider
 <SUBSECTION Standard>

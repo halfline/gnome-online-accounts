@@ -79,7 +79,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goaimapauthlogin.h		goaimapauthlogin.c		\
 	goasmtpauth.h			goasmtpauth.c			\
 	goamailclient.h			goamailclient.c			\
-	goaexchangeprovider.h		goaexchangeprovider.c		\
 	goaoauthprovider.h		goaoauthprovider.c		\
 	goaoauth2provider.h		goaoauth2provider.c		\
 	goaimapsmtpprovider.h		goaimapsmtpprovider.c		\
@@ -93,6 +92,25 @@ libgoa_backend_1_0_la_SOURCES =						\
 	$(top_builddir)/src/goaidentity/org.gnome.Identity.c		\
 	$(top_builddir)/src/goaidentity/org.freedesktop.realmd.c	\
 	$(NULL)
+
+if BUILD_EXCHANGE
+goamodule_LTLIBRARIES += libgoaexchange.la
+libgoaexchange_la_SOURCES =					\
+	goaexchangemodule.c					\
+	goaexchangeprovider.c					\
+	goaexchangeprovider.h					\
+	$(NULL)
+libgoaexchange_la_CFLAGS =					\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(NULL)
+libgoaexchange_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(NULL)
+libgoaexchange_la_LDFLAGS = $(module_flags)
+endif
 
 if BUILD_FACEBOOK
 goamodule_LTLIBRARIES += libgoafacebook.la

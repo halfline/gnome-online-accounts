@@ -163,6 +163,7 @@ AC_ARG_ENABLE([exchange],
 if test "$enable_exchange" != "no"; then
   AC_DEFINE(GOA_EXCHANGE_ENABLED, 1, [Enable Microsoft Exchange data provider])
 fi
+AM_CONDITIONAL(BUILD_EXCHANGE, [test x$enable_exchange != xno])
 
 # Flickr
 AC_ARG_ENABLE([flickr], [AS_HELP_STRING([--enable-flickr], [Enable Flickr provider])], [], [enable_flickr=yes])

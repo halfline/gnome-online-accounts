@@ -1,6 +1,6 @@
 /* -*- mode: C; c-file-style: "gnu"; indent-tabs-mode: nil; -*- */
 /*
- * Copyright (C) 2012, 2013 Red Hat, Inc.
+ * Copyright (C) 2012, 2013, 2014 Red Hat, Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -25,15 +25,8 @@
 #include "goaexchangeprovider.h"
 #include "goautils.h"
 
-/**
- * GoaExchangeProvider:
- *
- * The #GoaExchangeProvider structure contains only private data and should
- * only be accessed using the provided API.
- */
 struct _GoaExchangeProvider
 {
-  /*< private >*/
   GoaProvider parent_instance;
 };
 
@@ -44,20 +37,7 @@ struct _GoaExchangeProviderClass
   GoaProviderClass parent_class;
 };
 
-/**
- * SECTION:goaexchangeprovider
- * @title: GoaExchangeProvider
- * @short_description: A provider for Microsoft Exchange servers
- *
- * #GoaExchangeProvider is used to access Microsoft Exchange servers.
- */
-
-G_DEFINE_TYPE_WITH_CODE (GoaExchangeProvider, goa_exchange_provider, GOA_TYPE_PROVIDER,
-                         goa_provider_ensure_extension_points_registered ();
-                         g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME,
-							 g_define_type_id,
-							 "exchange",
-							 0));
+G_DEFINE_DYNAMIC_TYPE (GoaExchangeProvider, goa_exchange_provider, GOA_TYPE_PROVIDER);
 
 /* ---------------------------------------------------------------------------------------------------- */
 
@@ -961,6 +941,11 @@ goa_exchange_provider_init (GoaExchangeProvider *provider)
 }
 
 static void
+goa_exchange_provider_class_finalize (GoaExchangeProviderClass *klass)
+{
+}
+
+static void
 goa_exchange_provider_class_init (GoaExchangeProviderClass *klass)
 {
   GoaProviderClass *provider_class;
@@ -1032,4 +1017,13 @@ on_handle_get_password (GoaPasswordBased      *interface,
     g_variant_unref (credentials);
   g_object_unref (provider);
   return TRUE; /* invocation was handled */
+}
+
+/* ---------------------------------------------------------------------------------------------------- */
+
+void
+goa_exchange_provider_register (GIOModule *module)
+{
+  goa_exchange_provider_register_type (G_TYPE_MODULE (module));
+  g_io_extension_point_implement (GOA_PROVIDER_EXTENSION_POINT_NAME, GOA_TYPE_EXCHANGE_PROVIDER, "exchange", 0);
 }

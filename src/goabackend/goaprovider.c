@@ -23,7 +23,6 @@
 #include "goaprovider.h"
 #include "goaprovider-priv.h"
 #include "goaproviderfactory.h"
-#include "goaexchangeprovider.h"
 #include "goaimapsmtpprovider.h"
 #include "goaowncloudprovider.h"
 #include "goayahooprovider.h"
@@ -765,9 +764,6 @@ ensure_builtins_loaded (void)
        */
 #ifdef GOA_OWNCLOUD_ENABLED
       type = GOA_TYPE_OWNCLOUD_PROVIDER;
-#endif
-#ifdef GOA_EXCHANGE_ENABLED
-      type = GOA_TYPE_EXCHANGE_PROVIDER;
 #endif
 #ifdef GOA_IMAP_SMTP_ENABLED
       type = GOA_TYPE_IMAP_SMTP_PROVIDER;
