@@ -81,8 +81,6 @@ libgoa_backend_1_0_la_SOURCES =						\
 	goamailclient.h			goamailclient.c			\
 	goaoauthprovider.h		goaoauthprovider.c		\
 	goaoauth2provider.h		goaoauth2provider.c		\
-	goatelepathyfactory.h		goatelepathyfactory.c		\
-	goatelepathyprovider.h		goatelepathyprovider.c		\
 	goautils.h			goautils.c			\
 	goawebview.h			goawebview.c			\
 	nautilus-floating-bar.h		nautilus-floating-bar.c		\
@@ -270,6 +268,31 @@ libgoapocket_la_LIBADD =					\
 libgoapocket_la_LDFLAGS = $(module_flags)
 endif
 
+if BUILD_TELEPATHY
+goamodule_LTLIBRARIES += libgoatelepathy.la
+libgoatelepathy_la_SOURCES =					\
+	goatelepathyfactory.c					\
+	goatelepathyfactory.h					\
+	goatelepathymodule.c					\
+	goatelepathyprovider.c					\
+	goatelepathyprovider.h					\
+	$(NULL)
+libgoatelepathy_la_CFLAGS =					\
+	$(GLIB_CFLAGS) 						\
+	$(GTK_CFLAGS) 						\
+	$(TP_CFLAGS)						\
+	$(TPAW_CFLAGS)						\
+	$(NULL)
+libgoatelepathy_la_LIBADD =					\
+	$(builddir)/libgoa-backend-1.0.la			\
+	$(GLIB_LIBS) 						\
+	$(GTK_LIBS) 						\
+	$(TP_LIBS)						\
+	$(TPAW_LIBS)						\
+	$(NULL)
+libgoatelepathy_la_LDFLAGS = $(module_flags)
+endif
+
 if BUILD_WINDOWS_LIVE
 goamodule_LTLIBRARIES += libgoawindowslive.la
 libgoawindowslive_la_SOURCES =					\
@@ -329,8 +352,6 @@ libgoa_backend_1_0_la_CFLAGS =					\
 	$(SECRET_CFLAGS)					\
 	$(LIBSOUP_CFLAGS)					\
 	$(LIBXML_CFLAGS)					\
-	$(TP_CFLAGS)						\
-	$(TPAW_CFLAGS)						\
 	$(NULL)
 
 libgoa_backend_1_0_la_LIBADD = 					\
@@ -343,8 +364,6 @@ libgoa_backend_1_0_la_LIBADD = 					\
 	$(SECRET_LIBS)						\
 	$(LIBSOUP_LIBS)						\
 	$(LIBXML_LIBS)						\
-	$(TP_LIBS)						\
-	$(TPAW_LIBS)						\
 	$(NULL)
 
 libgoa_backend_1_0_la_LDFLAGS = 				\

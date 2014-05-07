@@ -318,6 +318,7 @@ AC_ARG_ENABLE([telepathy],
 if test "$enable_telepathy" != "no"; then
   AC_DEFINE(GOA_TELEPATHY_ENABLED, 1, [Enable Telepathy data provider])
 fi
+AM_CONDITIONAL(BUILD_TELEPATHY, [test x$enable_telepathy != xno])
 
 PKG_CHECK_MODULES(TP, telepathy-glib)
 
