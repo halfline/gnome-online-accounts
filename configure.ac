@@ -48,6 +48,7 @@ AC_DEFINE(GOA_MICRO_VERSION,
 # Initialization
 #
 
+GLIB_GSETTINGS
 GNOME_DEBUG_CHECK
 GNOME_COMPILE_WARNINGS([maximum])
 GNOME_MAINTAINER_MODE_DEFINES
@@ -321,7 +322,7 @@ fi
 # Internationalization
 #
 
-IT_PROG_INTLTOOL
+IT_PROG_INTLTOOL([0.50.1])
 GETTEXT_PACKAGE=gnome-online-accounts
 AC_SUBST([GETTEXT_PACKAGE])
 AM_GLIB_GNU_GETTEXT
@@ -381,6 +382,7 @@ data/icons/24x24/Makefile
 data/icons/32x32/Makefile
 data/icons/48x48/Makefile
 data/icons/256x256/Makefile
+data/org.gnome.online-accounts.gschema.xml
 src/Makefile
 src/goa/Makefile
 src/goa/goa-1.0.pc
