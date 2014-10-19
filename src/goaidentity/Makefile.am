@@ -92,6 +92,22 @@ $(realmd_dbus_built_sources) : Makefile.am org.freedesktop.realmd.xml
 BUILT_SOURCES += $(realmd_dbus_built_sources)
 EXTRA_DIST += org.freedesktop.realmd.xml
 
+gsd_smartcard_dbus_built_sources =					\
+	org.gnome.SettingsDaemon.Smartcard.h				\
+	org.gnome.SettingsDaemon.Smartcard.c				\
+	$(NULL)
+
+$(gsd_smartcard_dbus_built_sources) : Makefile.am org.gnome.SettingsDaemon.Smartcard.xml
+	$(AM_V_GEN) gdbus-codegen					\
+		--interface-prefix org.gnome.SettingsDaemon.Smartcard.	\
+		--generate-c-code org.gnome.SettingsDaemon.Smartcard	\
+		--c-generate-object-manager			\
+		--c-namespace GoaSmartcard				\
+		$(srcdir)/org.gnome.SettingsDaemon.Smartcard.xml		\
+		$(NULL)
+BUILT_SOURCES += $(gsd_smartcard_dbus_built_sources)
+EXTRA_DIST += org.gnome.SettingsDaemon.Smartcard.xml
+
 if BUILD_KERBEROS
 noinst_LTLIBRARIES = libgoaidentity.la
 
