@@ -65,6 +65,7 @@ static void
 sign_in (GoaIdentityService     *self,
          const char             *identifier,
          gconstpointer           initial_password,
+         const char             *preauth_source,
          GoaIdentitySignInFlags  flags,
          GCancellable           *cancellable,
          GAsyncReadyCallback     callback,
@@ -317,7 +318,8 @@ static void
 read_sign_in_details (GoaIdentityServiceManager  *manager,
                       GVariant                   *details,
                       GoaIdentitySignInFlags     *flags,
-                      char                      **secret_key)
+                      char                      **secret_key,
+                      char                      **preauth_source)
 {
   GVariantIter  iter;
   char          *key;
@@ -329,6 +331,8 @@ read_sign_in_details (GoaIdentityServiceManager  *manager,
     {
       if (g_strcmp0 (key, "initial-password") == 0)
         *secret_key = g_strdup (value);
+      else if (g_strcmp0 (key, "preauthentication-source") == 0)
+        *preauth_source = g_strdup (value);
       else if (g_strcmp0 (key, "disallow-renewal") == 0
                && g_strcmp0 (value, "true") == 0)
         *flags |= GOA_IDENTITY_SIGN_IN_FLAGS_DISALLOW_RENEWAL;
@@ -351,13 +355,15 @@ goa_identity_service_handle_sign_in (GoaIdentityServiceManager *manager,
   GSimpleAsyncResult     *operation_result;
   GoaIdentitySignInFlags  flags;
   char                   *secret_key;
+  char                   *preauth_source;
   gconstpointer           initial_password;
   GCancellable           *cancellable;
 
   secret_key = NULL;
+  preauth_source = NULL;
   initial_password = NULL;
 
-  read_sign_in_details (manager, details, &flags, &secret_key);
+  read_sign_in_details (manager, details, &flags, &secret_key, &preauth_source);
 
   if (secret_key != NULL)
     {
@@ -402,12 +408,14 @@ goa_identity_service_handle_sign_in (GoaIdentityServiceManager *manager,
   sign_in (self,
            identifier,
            initial_password,
+           preauth_source,
            flags,
            cancellable,
            (GAsyncReadyCallback)
            on_sign_in_done,
            operation_result);
 
+  g_free (preauth_source);
   g_object_unref (cancellable);
 
   return TRUE;
@@ -873,6 +881,7 @@ add_temporary_account (GoaIdentityService *self,
                        GoaIdentity        *identity)
 {
   char               *realm;
+  char               *preauth_source;
   const char         *principal;
   char               *principal_for_display;
   GSimpleAsyncResult *operation_result;
@@ -899,12 +908,15 @@ add_temporary_account (GoaIdentityService *self,
                                                               identity);
 
   realm = goa_kerberos_identity_get_realm_name (GOA_KERBEROS_IDENTITY (identity));
+  preauth_source = goa_kerberos_identity_get_preauthentication_source (GOA_KERBEROS_IDENTITY (identity));
 
   g_variant_builder_init (&credentials, G_VARIANT_TYPE_VARDICT);
 
   g_variant_builder_init (&details, G_VARIANT_TYPE ("a{ss}"));
   g_variant_builder_add (&details, "{ss}", "Realm", realm);
   g_variant_builder_add (&details, "{ss}", "IsTemporary", "true");
+  if (preauth_source != NULL)
+    g_variant_builder_add (&details, "{ss}", "PreauthenticationSource", preauth_source);
   g_variant_builder_add (&details, "{ss}", "TicketingEnabled", "true");
 
 
@@ -930,6 +942,7 @@ add_temporary_account (GoaIdentityService *self,
                                 on_account_added,
                                 operation_result);
   g_free (realm);
+  g_free (preauth_source);
   g_free (principal_for_display);
 }
 
@@ -1266,6 +1279,7 @@ static void
 sign_in (GoaIdentityService     *self,
          const char             *identifier,
          gconstpointer           initial_password,
+         const char             *preauth_source,
          GoaIdentitySignInFlags  flags,
          GCancellable           *cancellable,
          GAsyncReadyCallback     callback,
@@ -1293,6 +1307,7 @@ sign_in (GoaIdentityService     *self,
   goa_identity_manager_sign_identity_in (self->priv->identity_manager,
                                          identifier,
                                          initial_password,
+                                         preauth_source,
                                          flags,
                                          (GoaIdentityInquiryFunc)
                                          on_identity_inquiry,
