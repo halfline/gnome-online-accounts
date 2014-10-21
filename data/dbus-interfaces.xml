@@ -631,6 +631,8 @@
       ticketing capabilities.
   -->
   <interface name="org.gnome.OnlineAccounts.Ticketing">
+    <property name="details" type="a{ss}" access="read"/>
+
     <!--
       GetTicket:
 
