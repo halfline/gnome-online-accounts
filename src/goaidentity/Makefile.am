@@ -45,6 +45,7 @@ identity_sources =						\
 	goakerberosidentity.c					\
 	goakerberosidentityinquiry.c				\
 	goakerberosidentitymanager.c				\
+	main.c							\
 	$(NULL)
 
 identity_dbus_built_sources =					\
@@ -93,28 +94,31 @@ BUILT_SOURCES += $(realmd_dbus_built_sources)
 EXTRA_DIST += org.freedesktop.realmd.xml
 
 if BUILD_KERBEROS
-noinst_LTLIBRARIES = libgoaidentity.la
+libexec_PROGRAMS = goa-identity-service
 
-libgoaidentity_la_SOURCES = 					\
+goa_identity_service_SOURCES = 					\
 	goaidentityenumtypes.h		goaidentityenumtypes.c	\
+        $(top_srcdir)/src/goabackend/goalogging.h               \
+        $(top_srcdir)/src/goabackend/goalogging.c               \
 	$(identity_dbus_built_sources)				\
 	$(realmd_dbus_built_sources)				\
 	$(identity_sources)					\
 	$(NULL)
 
-libgoaidentity_la_CPPFLAGS =					\
+goa_identity_service_CPPFLAGS =					\
 	-DG_LOG_DOMAIN=\"libgoaidentity\"			\
 	-DGOA_BACKEND_COMPILATION				\
 	$(NULL)
 
-libgoaidentity_la_CFLAGS =					\
+goa_identity_service_CFLAGS =					\
 	$(GLIB_CFLAGS) 						\
 	$(GTK_CFLAGS)						\
 	$(KRB5_CFLAGS)						\
 	$(GCR_CFLAGS)						\
 	$(NULL)
 
-libgoaidentity_la_LIBADD = 					\
+goa_identity_service_LDADD = 					\
+	$(top_builddir)/src/goa/libgoa-1.0.la			\
 	$(GLIB_LIBS) 						\
 	$(GTK_LIBS)						\
 	$(KRB5_LIBS)						\
