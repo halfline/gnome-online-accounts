@@ -25,9 +25,6 @@
 #include "goadaemon.h"
 #include "goabackend/goabackend.h"
 #include "goabackend/goautils.h"
-#ifdef GOA_KERBEROS_ENABLED
-#include "goaidentity/goaidentityservice.h"
-#endif
 
 struct _GoaDaemon
 {
@@ -42,10 +39,6 @@ struct _GoaDaemon
   GDBusObjectManagerServer *object_manager;
 
   GoaManager *manager;
-
-#ifdef GOA_KERBEROS_ENABLED
-  GoaIdentityService *identity_service;
-#endif
 
   guint config_timeout_id;
 };
@@ -112,10 +105,6 @@ goa_daemon_finalize (GObject *object)
   g_object_unref (daemon->object_manager);
   g_object_unref (daemon->connection);
 
-#ifdef GOA_KERBEROS_ENABLED
-  g_clear_object (&daemon->identity_service);
-#endif
-
   G_OBJECT_CLASS (goa_daemon_parent_class)->finalize (object);
 }
 
@@ -179,9 +168,6 @@ goa_daemon_init (GoaDaemon *daemon)
   static volatile GQuark goa_error_domain = 0;
   GoaObjectSkeleton *object;
   gchar *path;
-#ifdef GOA_KERBEROS_ENABLED
-  GError *error = NULL;
-#endif
 
   /* this will force associating errors in the GOA_ERROR error domain
    * with org.freedesktop.Goa.Error.* errors via g_dbus_error_register_error_domain().
@@ -226,17 +212,6 @@ goa_daemon_init (GoaDaemon *daemon)
 
   /* Export objects */
   g_dbus_object_manager_server_set_connection (daemon->object_manager, daemon->connection);
-
-#ifdef GOA_KERBEROS_ENABLED
-  daemon->identity_service = goa_identity_service_new ();
-  if (!goa_identity_service_activate (daemon->identity_service,
-                                      &error))
-    {
-      g_warning ("Error activating identity service: %s", error->message);
-      g_error_free (error);
-      g_clear_object (&daemon->identity_service);
-    }
-#endif
 }
 
 static void
