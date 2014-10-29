@@ -1621,8 +1621,9 @@ on_identities_listed (GoaIdentityManager *manager,
       GoaIdentity *identity = node->data;
       const char  *principal;
       GoaObject   *object;
+      char *object_path;
 
-      export_identity (self, identity);
+      object_path = export_identity (self, identity);
 
       principal = goa_identity_get_identifier (identity);
 
@@ -1632,6 +1633,8 @@ on_identities_listed (GoaIdentityManager *manager,
         add_temporary_account (self, identity);
       else
         g_object_unref (object);
+
+      g_free (object_path);
     }
 
  out:
