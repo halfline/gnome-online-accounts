@@ -224,6 +224,7 @@ goa_log (GoaLogLevel     level,
   if (level >= GOA_LOG_LEVEL_NOTICE)
     syslog (syslog_priority, "%s [%s, %s()]", message, location, function);
   g_free (message);
+  g_free (thread_str);
 
   G_UNLOCK (log_lock);
 }
