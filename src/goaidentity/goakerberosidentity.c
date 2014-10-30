@@ -112,9 +112,7 @@ goa_kerberos_identity_dispose (GObject *object)
   GoaKerberosIdentity *self = GOA_KERBEROS_IDENTITY (object);
 
   G_LOCK (identity_lock);
-  g_clear_object (&self->priv->renewal_alarm);
-  g_clear_object (&self->priv->expiring_alarm);
-  g_clear_object (&self->priv->expiration_alarm);
+  clear_alarms (self);
   g_clear_pointer (&self->priv->preauth_identity_source,
                    g_free);
   G_UNLOCK (identity_lock);
