@@ -1,7 +1,7 @@
 # Bengali (India) translation for gnome-online-accounts.
 # Copyright (C) 2012 gnome-online-accounts's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gnome-online-accounts package.
-# 
+#
 # Sayak Sarkar <sayak.bugsmith@gmail.com>, 2012.
 # sray <sray@redhat.com>, 2013. #zanata
 msgid ""
@@ -13,16 +13,15 @@ msgstr ""
 "PO-Revision-Date: 2013-10-09 07:58-0400\n"
 "Last-Translator: sray <sray@redhat.com>\n"
 "Language-Team: Bengali (India) <anubad@lists.ankur.org.in>\n"
+"Language: bn-IN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: bn-IN\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Zanata 3.1.2\n"
 
 #. TODO: more specific
-#: ../src/daemon/goadaemon.c:775
-#: ../src/daemon/goadaemon.c:985
+#: ../src/daemon/goadaemon.c:775 ../src/daemon/goadaemon.c:985
 #, c-format
 msgid "Failed to find a provider for: %s"
 msgstr ":%s এর জন্য একটি প্রদানকারী খুঁজে পেতে ব্যর্থ"
@@ -33,8 +32,7 @@ msgid "ProviderType property is not set for account"
 msgstr "প্রোভাইডারটাইপ বৈশিষ্ট্য অ্যাকাউন্টের জন্য সেট করা হয় নি"
 
 #. TODO: more specific
-#: ../src/goabackend/goaewsclient.c:234
-#: ../src/goabackend/goahttpclient.c:175
+#: ../src/goabackend/goaewsclient.c:234 ../src/goabackend/goahttpclient.c:175
 #, c-format
 msgid "Code: %u - Unexpected response from server"
 msgstr "কোড: %u - সার্ভারের থেকে অপ্রত্যাশিত প্রতিক্রিয়া"
@@ -219,8 +217,8 @@ msgstr "Facebook"
 #, c-format
 msgid "Expected status 200 when requesting guid, instead got status %d (%s)"
 msgstr ""
-"গাইড অনুরোধ করার সময় স্ট্যাটাস ২০০ প্রত্যাশিত, কিন্তু তার পরিবর্তে, "
-"স্ট্যাটাস %d (%s) পাওয়া গেছে"
+"গাইড অনুরোধ করার সময় স্ট্যাটাস ২০০ প্রত্যাশিত, কিন্তু তার পরিবর্তে, স্ট্যাটাস %d (%s) "
+"পাওয়া গেছে"
 
 # auto translated by TM merge from project: gvfs, version: 1.16.3, DocId: gvfs
 #: ../src/goabackend/goafacebookprovider.c:224
@@ -255,11 +253,10 @@ msgstr "Flickr"
 
 #: ../src/goabackend/goaflickrprovider.c:183
 #, c-format
-msgid ""
-"Expected status 200 when requesting user id, instead got status %d (%s)"
+msgid "Expected status 200 when requesting user id, instead got status %d (%s)"
 msgstr ""
-"ব্যবহারকারী অাইডি অনুরোধের সময়ে প্রত্যাশিত স্ট্যাটাস 200, পরিবর্তে পাওয়া "
-"স্ট্যাটাস হল %d (%s)"
+"ব্যবহারকারী অাইডি অনুরোধের সময়ে প্রত্যাশিত স্ট্যাটাস 200, পরিবর্তে পাওয়া স্ট্যাটাস হল "
+"%d (%s)"
 
 #: ../src/goabackend/goaflickrprovider.c:322
 msgid "Your system time is invalid. Check your date and time settings."
@@ -447,8 +444,8 @@ msgstr "নেটওয়ার্ক রিসোর্সেস (_R)"
 msgid ""
 "Expected status 200 when requesting access token, instead got status %d (%s)"
 msgstr ""
-"অ্যাক্সেস টোকেন অনুরোধ করার সময় স্ট্যাটাস ২০০ প্রত্যাশিত, কিন্তু তার "
-"পরিবর্তে, স্ট্যাটাস %d (%s) পাওয়া গেছে"
+"অ্যাক্সেস টোকেন অনুরোধ করার সময় স্ট্যাটাস ২০০ প্রত্যাশিত, কিন্তু তার পরিবর্তে, স্ট্যাটাস "
+"%d (%s) পাওয়া গেছে"
 
 #: ../src/goabackend/goaoauth2provider.c:851
 #: ../src/goabackend/goaoauth2provider.c:891
@@ -494,8 +491,7 @@ msgstr "অ্যাক্সেস টোকেন (%s, %d) রিফ্রে�
 #: ../src/goabackend/goaoauthprovider.c:609
 #, c-format
 msgid "Missing access_token or access_token_secret headers in response"
-msgstr ""
-"প্রতিক্রিয়ায় access_token বা access_token_secret হেডারগুলি অনুপস্থিত"
+msgstr "প্রতিক্রিয়ায় access_token বা access_token_secret হেডারগুলি অনুপস্থিত"
 
 #: ../src/goabackend/goaoauthprovider.c:911
 msgid "Error getting a Request Token: "
@@ -507,14 +503,13 @@ msgstr "একটি অনুরোধ টোকেন পেতে ত্র�
 msgid ""
 "Expected status 200 for getting a Request Token, instead got status %d (%s)"
 msgstr ""
-"একটি অনুরোধ টোকেন পাওয়ার জন্য স্ট্যাটাস 200 প্রত্যাশিত, এর পরিবর্তে "
-"স্ট্যাটাস %d (%s) পাওয়া গেছে"
+"একটি অনুরোধ টোকেন পাওয়ার জন্য স্ট্যাটাস 200 প্রত্যাশিত, এর পরিবর্তে স্ট্যাটাস %d (%s) "
+"পাওয়া গেছে"
 
 #: ../src/goabackend/goaoauthprovider.c:961
 #, c-format
 msgid "Missing request_token or request_token_secret headers in response"
-msgstr ""
-"প্রতিক্রিয়ায় request_token বা request_token_secret হেডারগুলি অনুপস্থিত"
+msgstr "প্রতিক্রিয়ায় request_token বা request_token_secret হেডারগুলি অনুপস্থিত"
 
 #. Translators: The verb "Paste" is used when asking the user to paste a string from a web browser window
 #: ../src/goabackend/goaoauthprovider.c:978
@@ -728,8 +723,7 @@ msgstr "%k: ক্রেডেনশিয়ালস ক্যাশে আর
 
 #: ../src/goaidentity/goakerberosidentity.c:1148
 msgid "Could not store new credentials in credentials cache: %k"
-msgstr ""
-"ক্রেডেনশিয়ালস ক্যাশের মধ্যে নতুন ক্রেডেনশিয়ালস সংরক্ষণ করা যায়নি: %k"
+msgstr "ক্রেডেনশিয়ালস ক্যাশের মধ্যে নতুন ক্রেডেনশিয়ালস সংরক্ষণ করা যায়নি: %k"
 
 #: ../src/goaidentity/goakerberosidentity.c:1425
 #, c-format
